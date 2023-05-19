@@ -1,17 +1,13 @@
 import styles from "./Avatar.module.css";
 
-interface AvatarProps {
-  src: string;
+import { ImgHTMLAttributes } from "react";
+
+interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
   border: boolean;
-  alt?: string;
 }
 
-export function Avatar({ src, border, alt }: AvatarProps) {
+export function Avatar({ border, ...props }: AvatarProps) {
   return (
-    <img
-      className={`${styles.avatar} ${border ? styles.border : styles.noBorder}`}
-      src={src}
-      alt={alt}
-    />
+    <img className={`${styles.avatar} ${border ? styles.border : styles.noBorder}`} {...props} />
   );
 }

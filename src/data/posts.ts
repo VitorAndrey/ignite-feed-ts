@@ -1,6 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 
-const posts = [
+interface Author {
+  avatarUrl: string;
+  name: string;
+  role: string;
+}
+
+interface Post {
+  id: string;
+  author: Author;
+}
+
+const posts: Post = [
   {
     id: "1",
     author: {

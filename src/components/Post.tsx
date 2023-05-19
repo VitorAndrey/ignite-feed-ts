@@ -34,7 +34,7 @@ interface NewComment {
 }
 
 interface Content {
-  type: string;
+  type: "paragraph" | "link";
   content: string;
 }
 
