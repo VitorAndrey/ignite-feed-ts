@@ -1,17 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 
-interface Author {
-  avatarUrl: string;
-  name: string;
-  role: string;
-}
+import { PostType } from "../components/Post";
 
-interface Post {
-  id: string;
-  author: Author;
-}
-
-const posts: Post = [
+const posts: PostType[] = [
   {
     id: "1",
     author: {

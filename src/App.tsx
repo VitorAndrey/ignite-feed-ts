@@ -37,17 +37,7 @@ export function App() {
         />
         <main>
           {posts.map((post) => {
-            return (
-              <Post
-                key={post.id}
-                author={post.author}
-                content={post.content}
-                publishedAt={post.publishedAt}
-                comments={post.comments}
-                userName={name}
-                userPicture={picture}
-              />
-            );
+            return <Post key={post.id} post={post} userName={name} userPicture={picture} />;
           })}
         </main>
       </div>

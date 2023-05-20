@@ -34,21 +34,26 @@ interface NewComment {
 }
 
 interface Content {
-  type: "paragraph" | "link";
+  type: string;
   content: string;
 }
 
-interface PostProps {
+export interface PostType {
+  id: string;
   author: Author;
   content: Content[];
   publishedAt: Date;
   comments: Comments[];
+}
+
+interface PostProps {
+  post: PostType;
   userName: string;
   userPicture: string;
 }
 
-export function Post({ author, content, publishedAt, comments, userName, userPicture }: PostProps) {
-  const [commentList, setCommentList] = useState(comments);
+export function Post({ post, userName, userPicture }: PostProps) {
+  const [commentList, setCommentList] = useState(post.comments);
   const [newCommentText, setNewcommentText] = useState("");
 
   const formattedDate = new Intl.DateTimeFormat("pt-BR", {
@@ -56,9 +61,9 @@ export function Post({ author, content, publishedAt, comments, userName, userPic
     month: "long",
     hour: "2-digit",
     minute: "2-digit",
-  }).format(publishedAt);
+  }).format(post.publishedAt);
 
-  const toNowDate = formatDistanceToNow(publishedAt, {
+  const toNowDate = formatDistanceToNow(post.publishedAt, {
     locale: ptBR,
     addSuffix: true,
   });
@@ -98,15 +103,15 @@ export function Post({ author, content, publishedAt, comments, userName, userPic
       {/* HEADER */}
       <header>
         <div className={styles.author}>
-          <Avatar src={author.avatarUrl} border />
+          <Avatar src={post.author.avatarUrl} border />
           <div className={styles.profileInfo}>
-            <strong>{author.name}</strong>
-            <span>{author.role}</span>
+            <strong>{post.author.name}</strong>
+            <span>{post.author.role}</span>
           </div>
         </div>
 
         <div>
-          <time title={formattedDate} dateTime={publishedAt.toString()}>
+          <time title={formattedDate} dateTime={post.publishedAt.toString()}>
             {toNowDate}
           </time>
         </div>
@@ -114,7 +119,7 @@ export function Post({ author, content, publishedAt, comments, userName, userPic
 
       {/* CONTENT */}
       <div className={styles.content}>
-        {content.map((line) => {
+        {post.content.map((line) => {
           if (line.type === "paragraph") {
             return <p key={uuidv4()}>{line.content}</p>;
           } else if (line.type === "link") {
